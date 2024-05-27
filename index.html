@@ -84,8 +84,8 @@
         let countdown;
 
         function generateQuestion() {
-            const num1 = Math.floor(Math.random() * 6) + 2;
-            const num2 = Math.floor(Math.random() * 6) + 2;
+            const num1 = Math.floor(Math.random() * 6) + 1;
+            const num2 = Math.floor(Math.random() * 6) + 1;
             document.getElementById('question').textContent = `${num1} x ${num2} = ?`;
             return { num1, num2 };
         }
