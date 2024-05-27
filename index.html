@@ -30,6 +30,8 @@
             font-weight: bold;
             color: white !important;
             margin-bottom: 20px;
+			
+			
         }
         .success {
             color: green;
@@ -54,7 +56,7 @@
             width: 100%;
             height: 100%;
             background-color: blue;
-            animation: progress 3s linear forwards;
+            animation: progress 1s linear forwards;
         }
         @keyframes progress {
             0% {
@@ -68,11 +70,11 @@
 </head>
 <body>
     <div class="container" id="quizContainer">
-        <h1 id="question" class="mb-3">3 x 4 = ?</h1>
-        <input type="number" id="answer" class="form-control large-input mb-3" placeholder="Your answer" onkeydown="checkEnter(event)" autofocus>
-        <button onclick="checkAnswer()" class="btn btn-primary mb-3">Check</button>
+        <h1 id="question" class="border border-primary m-4 rounded-pill">3 x 4 = ?</h1>
+        <input type="number" id="answer" class="form-control form-control-lg large-input mb-3" placeholder="...תשובה" onkeydown="checkEnter(event)" autofocus onfocus="onFocusEvent()">
+        <button onclick="checkAnswer()" class="btn btn-primary mb-3 btn-lg">בדוק</button>
         <div id="message" class="message"></div>
-        <div id="counter" class="mb-3">ענית נכון על : 0</div>
+        <div id="counter" class="mb-3">תשובות נכונות : 0</div>
         <div class="loader" id="loader"><div class="loader-bar"><div></div></div></div>
     </div>
 
@@ -82,8 +84,8 @@
         let countdown;
 
         function generateQuestion() {
-            const num1 = Math.floor(Math.random() * 6) + 1;
-            const num2 = Math.floor(Math.random() * 6) + 1;
+            const num1 = Math.floor(Math.random() * 6) + 2;
+            const num2 = Math.floor(Math.random() * 6) + 2;
             document.getElementById('question').textContent = `${num1} x ${num2} = ?`;
             return { num1, num2 };
         }
@@ -99,17 +101,17 @@
             if (answer === correctAnswer) {
                 message.textContent = "כל הכבוד, תשובה נכונה";
                 message.className = 'message success';
-                quizContainer.style.backgroundColor = 'green';
+                message.style.backgroundColor = 'green';
                 correctCount++;
                 counter.textContent = `תשובות נכונות: ${correctCount}`;
                 loader.style.display = 'block';
                 setTimeout(() => {
                     nextQuestion();
-                }, 2000); // Move to next question after 3 seconds
+                }, 1000); // Move to next question after 3 seconds
             } else {
                 message.textContent = "תשובה לא נכונה, נסה שנית";
                 message.className = 'message error';
-                quizContainer.style.backgroundColor = 'red';
+                message.style.backgroundColor = 'red';
             }
         }
 
@@ -117,7 +119,7 @@
             currentQuestion = generateQuestion();
             document.getElementById('answer').value = '';
             document.getElementById('message').textContent = '';
-            document.getElementById('quizContainer').style.backgroundColor = 'white';
+            document.getElementById('message').style.backgroundColor = 'white';
             document.getElementById('loader').style.display = 'none'; // Hide loader
         }
 
@@ -126,6 +128,10 @@
                 checkAnswer();
             }
         }
+		
+		function onFocusEvent(event){
+			document.getElementById('message').style.backgroundColor = 'white'
+		}
     </script>
 </body>
 </
